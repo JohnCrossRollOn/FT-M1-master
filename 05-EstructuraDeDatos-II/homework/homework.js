@@ -96,26 +96,29 @@ luego, invocando set('instructora', 'Ani'), se almacenará el par key-valor en u
 
 function HashTable(){
   this.numBuckets = 35;
+  this.buckets = [];
 }
-HashTable.prototype.hesh = function(str){
-  return parseInt([...str].map((v)=>v.charCodeAt(0)).join(''), 10)
-}
+
 HashTable.prototype.hash = function(str){
   return [...str].reduce((t,v)=>t+v.charCodeAt(0), 0)%this.numBuckets
 }
 
-HashTable.prototype.set = function(key, valor) {
-  let claveHash = this.hash(key)*this.hesh(key);
-  this[claveHash] = valor;
+HashTable.prototype.set = function(key, val) {
+  var i = this.hash(key);
+  if (!this.buckets[i]) {
+    this.buckets[i] = {};
+  }
+  this.buckets[i][key] = val;
 }
 
 HashTable.prototype.get = function(key) {
-  return this[this.hash(key)*this.hesh(key)]
+  return this.buckets[this.hash(key)][key];
 }
 
 HashTable.prototype.hasKey = function(key) {
-  return this.hasOwnProperty(this.hash(key)*this.hesh(key))
+  return this.buckets[this.hash(key)].hasOwnProperty(key)
 }
+
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
