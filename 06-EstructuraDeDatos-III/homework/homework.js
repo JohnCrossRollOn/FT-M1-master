@@ -37,18 +37,18 @@ BinarySearchTree.prototype.contains = function(value) {
 
 BinarySearchTree.prototype.depthFirstForEach = function(cb, str) {
   function inOrd(node) {
-    node.left && inOrd(node.left);
+    if (node.left) {inOrd(node.left)};
     cb(node.value);
-    node.right && inOrd(node.right);
+    if (node.right) {inOrd(node.right)};
   }
   function preOrd(node) {
     cb(node.value);
-    node.left && preOrd(node.left);
-    node.right && preOrd(node.right);
+    if (node.left) {preOrd(node.left)};
+    if (node.right) {preOrd(node.right)};
   }
   function posOrd(node) {
-    node.left && posOrd(node.left);
-    node.right && posOrd(node.right);
+    if (node.left) {posOrd(node.left)};
+    if (node.right) {posOrd(node.right)};
     cb(node.value);
   }
   if (str == 'in-order' || !str) {inOrd(this)};
