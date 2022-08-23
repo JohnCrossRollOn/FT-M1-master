@@ -51,9 +51,10 @@ BinarySearchTree.prototype.depthFirstForEach = function(cb, str) {
     node.right && posOrd(node.right);
     cb(node.value);
   }
+  if (str == 'in-order' || !str) {inOrd(this)};
   if (str == 'pre-order') {preOrd(this)};
   if (str == 'post-order') {posOrd(this)};
-  if (str == 'in-order' || !str) {inOrd(this)};
+  
 }
 
 BinarySearchTree.prototype.breadthFirstForEach = function(cb) {
