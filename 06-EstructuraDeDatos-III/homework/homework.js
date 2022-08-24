@@ -1,3 +1,5 @@
+const parseLinkDestination = require("markdown-it/lib/helpers/parse_link_destination");
+
 ;"use strict";
 
 /*
@@ -57,15 +59,15 @@ BinarySearchTree.prototype.depthFirstForEach = function(cb, str) {
   
 }
 
-BinarySearchTree.prototype.breadthFirstForEach = function(cb) {
-  var queue = [this];
-  var node = this;
-  while(queue.length > 0){
-      node = queue.shift();
-      cb(node.value);
-      if(node.left) {queue.push(node.left)};
-      if(node.right) {queue.push(node.right)};
+BinarySearchTree.prototype.breadthFirstForEach = function(cb, queue) {
+  if (!queue) {
+    var queue = [];
   }
+  cb (this.value);
+
+  if (this.left) {queue.push(this.left);}
+  if (this.right) {queue.push(this.right);}
+  if (queue.length > 0) {queue.shift().breadthFirstForEach(cb, queue)}
 };
 
 // No modifiquen nada debajo de esta linea
