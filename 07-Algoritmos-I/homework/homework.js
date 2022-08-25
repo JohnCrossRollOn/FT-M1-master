@@ -16,23 +16,20 @@ function factorear(num, primo) {
 }
 
 function bubbleSort(array) {
+  var flag = true;
   function _bubbleSorter(arr, c) {
     if (!c) {var c = 0}
-    if (typeof arr[c+1] == 'number' && arr[c]>=arr[c+1] ) {
+    if (typeof arr[c+1] == 'number' && arr[c]>arr[c+1] ) {
       let swap = {a: arr[c], b: arr[c+1]};
       arr[c] = swap.b;
-      arr[c+1] = swap.a;}
+      arr[c+1] = swap.a;
+    	flag = false;
+    }
     return typeof arr[c+1] != 'number'?[arr[c]]:[arr[c], ..._bubbleSorter(arr, c+1)]
   }
-  function _bubbleChecker(arr, validity, c) {
-    if (!validity) {var validity = true}
-    if (!c) {var c = 0}
-    return typeof arr[c+1] != 'number'?validity:arr[c]<=arr[c+1]?_bubbleChecker(arr, validity, c+1):false
-  }
   _bubbleSorter(array);
-  return _bubbleChecker(array)?array:bubbleSort(array)
+  return flag?array:bubbleSort(array, true)
 }
-
 
 
 function insertionSort(array, array2) {
@@ -48,16 +45,17 @@ function insertionSort(array, array2) {
       return array;
     }
   }
-  function compareKey(array, c) {
+  //compareKey() takes the last value of an array, as a 'key' and compares it with the rest, if this value is lower than its previous one, they will swap it, if its equal, he will continue, if its higher, it'll stop, making this an insertionSort possible.
+  function compareKeyAndSort(array, c) {
     if (!c && typeof c != 'number') {c = array.length-1}
     if (array[c] > array[c-1] || c < 1) {return array}
     if (array[c] < array[c-1]) {
       swap(array, c)
     }
-    return compareKey(array, c-1)
+    return compareKeyAndSort(array, c-1)
   }
   if (!array2) {var array2 = [array.shift()]}
-  compareKey(array2);
+  compareKeyAndSort(array2);
   if (array.length>0) {
     array2.push(array.shift())
     return insertionSort(array, array2)
