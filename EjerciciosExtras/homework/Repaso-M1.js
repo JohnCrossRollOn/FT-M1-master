@@ -15,8 +15,7 @@ const {
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
 var countArray = function(array) {
-    // Tu código aca:
-    
+    return array.reduce((t,v)=>Array.isArray(v)?t+countArray(v):t + v, 0)
 }
 
 
@@ -37,9 +36,8 @@ var countArray = function(array) {
 // dentro de a tenemos 3 propiedades mas, luego a3 tiene otras 3 y por ultimo c tiene una extra.
 // Propiedades: a, a1, a2, a3, f, a, c, o, b, c --> 10 en total
 
-var countProps = function(obj) {
-    // Tu código aca:
-
+var countProps = function(o) {
+    return Object.keys(o).reduce((t,v)=>typeof o[v]=='object'&&!Array.isArray(o[v])?t+1+countProps(o[v]):t+1, 0)
 }
 
 
@@ -53,7 +51,7 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
-
+    
 }
 
 
