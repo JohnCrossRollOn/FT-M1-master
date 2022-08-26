@@ -14,9 +14,7 @@ const {
 // Pista: utilizar el método Array.isArray() para determinar si algun elemento de array es un array anidado
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
-var countArray = function(array) {
-    return array.reduce((t,v)=>Array.isArray(v)?t+countArray(v):t + v, 0)
-}
+var countArray = function(array) {return array.reduce((t,v)=>Array.isArray(v)?t+countArray(v):t + v, 0)}
 
 
 // Implementar la función countProps: a partir de un objeto en el cual cada propiedad puede contener
@@ -36,9 +34,7 @@ var countArray = function(array) {
 // dentro de a tenemos 3 propiedades mas, luego a3 tiene otras 3 y por ultimo c tiene una extra.
 // Propiedades: a, a1, a2, a3, f, a, c, o, b, c --> 10 en total
 
-var countProps = function(o) {
-    return Object.keys(o).reduce((t,v)=>typeof o[v]=='object'&&!Array.isArray(o[v])?t+1+countProps(o[v]):t+1, 0)
-}
+var countProps = function(o) {return Object.keys(o).reduce((t,v)=>typeof o[v]=='object'&&!Array.isArray(o[v])?t+1+countProps(o[v]):t+1, 0)}
 
 
 // Implementar el método changeNotNumbers dentro del prototype de LinkedList que deberá cambiar
@@ -88,11 +84,7 @@ var mergeQueues = function(queueOne, queueTwo) {
 // - var multBySix = closureMult(6);
 // - multBySix(4) --> 24
 
-var closureMult = function(multiplier) {
-    // Tu código aca:
-    let i = multiplier;
-    return function(n) {return n*i}
-}
+var closureMult = function(multiplier) {return function(n) {return n*multiplier}}
 
 // Implementar el método sum dentro del prototype de BinarySearchTree
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
