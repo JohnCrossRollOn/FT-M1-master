@@ -20,17 +20,23 @@ function quickSort(array) {
 
   function mergeSort(array) {
     if (array.length < 2) {return array}
-    var mid = Math.floor(array.length / 2);
-    var left = mergeSort(array.slice(0, mid));
-    var right = mergeSort(array.slice(mid));
-    return merge(left, right);
-    }
-    function merge (sublist1, sublist2) {
-    var resultList = [];
-    while (sublist1.length > 0 && sublist2.length > 0)
-    resultList.push(sublist1[0] < sublist2[0]? sublist1.shift() : sublist2.shift());
-    return resultList = [...resultList, ...sublist1.length?sublist1 : sublist2]
-    }
+    var mid = Math.floor(array.length/2);
+    var array1 = mergeSort(array.slice(0,mid));
+    var array2 = mergeSort(array.slice(mid));
+    return merge(array1, array2);
+  }
+  
+  function merge(array1, array2) {
+    var sortedArray = [];
+    order(array1, array2, sortedArray)
+    return sortedArray = [...sortedArray, ...array1.length>0?array1:array2]}
+  
+  function order(array1, array2, sortedArray) {
+    if (array1.length > 0 && array2.length > 0) {
+      sortedArray.push(array1[0] < array2[0]? array1.shift() : array2.shift());
+      return order(array1, array2, sortedArray)
+      }
+  }
 
 // No modificar nada debajo de esta línea
 // --------------------------------

@@ -49,11 +49,16 @@ var countProps = function(o) {
 //    lista.changeNotNumbers();
 //    Ahora la lista quedaría: Head --> [1] --> ['2'] --> [false] --> ['Kirikocho] y la función debería haber devuelto el valor 1
 
-LinkedList.prototype.changeNotNumbers = function(){
-    // Tu código aca:
-    
+LinkedList.prototype.changeNotNumbers = function(position, changes) {
+    if (!position) {var position = this.head}
+    if (!changes) {var changes = 0}
+    if (isNaN(parseInt(position.value))&& typeof position.value != 'boolean') {
+        position.value = 'Kiricocho';
+        changes++;
+    }
+    if (!position.next) {return changes};
+    return this.changeNotNumbers(position.next, changes)
 }
-
 
 // Implementar la función mergeQueues que a partir de dos queues recibidas por parametro
 // debe devolver una nueva Queue que vaya mergeando los nodos de las anteriores.
@@ -64,8 +69,13 @@ LinkedList.prototype.changeNotNumbers = function(){
 // IMPORTANTE: NO son arreglos sino que son Queues.
 
 var mergeQueues = function(queueOne, queueTwo) {
-    // Tu código aca:
-
+    function _queueMerger(queueOne, queueTwo) {
+        return queueOne.size()>0 && queueTwo.size()>0?[queueOne.dequeue(), queueTwo.dequeue(), ..._queueMerger(queueOne, queueTwo)]:queueOne.size()>0?[queueOne.dequeue(), ..._queueMerger(queueOne, queueTwo)]:queueTwo.size()>0?[queueTwo.dequeue(), ..._queueMerger(queueOne, queueTwo)]:[]
+      }//"Mas le vale que tenga a Google de su lado, aquel que no sepa usar operadores ternarios." ~ Maestro Yoda ~ circa 1900 a.d.
+    var mergedQueuesArray = _queueMerger(queueOne, queueTwo);
+    var returnQueue = new Queue();
+    while(mergedQueuesArray.length > 0) {returnQueue.enqueue(mergedQueuesArray.shift())}
+    return returnQueue
 }
 
 
@@ -80,14 +90,22 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
-
+    let i = multiplier;
+    return function(n) {return n*i}
 }
 
 // Implementar el método sum dentro del prototype de BinarySearchTree
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
-    // Tu código aca:
-
+    var Node = this;
+    var Arr = []
+    function depthFirstForEach(Node) {
+        if (Node.left) {depthFirstForEach(Node.left)};
+        Arr.push(Node.value);
+        if (Node.right) {depthFirstForEach(Node.right)};
+    }
+    depthFirstForEach(Node);
+    return Arr.reduce((t,v)=>t+v)
 }
 
 module.exports = {
